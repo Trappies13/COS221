@@ -23,6 +23,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.Color;
+import javax.swing.table.JTableHeader;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Font;
 
 public class GUI extends JFrame {
 
@@ -73,10 +80,10 @@ public class GUI extends JFrame {
         }
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Staff", createStaffTab());
-        tabbedPane.addTab("Films", createFilmsTab());
-        tabbedPane.addTab("Report", createReportTab());
-        tabbedPane.addTab("Notifications", createNotificationsTab());
+        tabbedPane.addTab("<html><body><font color='#3A4250'>Staff</font></body></html>", createStaffTab());
+        tabbedPane.addTab("<html><body><font color='#3A4250'>Films</font></body></html>", createFilmsTab());
+        tabbedPane.addTab("<html><body><font color='#3A4250'>Report</font></body></html>", createReportTab());
+        tabbedPane.addTab("<html><body><font color='#3A4250'>Notifications</font></body></html>", createNotificationsTab());
 
         getContentPane().add(tabbedPane);
         setSize(800, 600);
@@ -92,6 +99,13 @@ public class GUI extends JFrame {
             "Phone", "Store", "Active"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         JTable staffTable = new JTable(model);
+        
+        JTableHeader header = staffTable.getTableHeader();
+        header.setBackground(Color.decode("#3A4250"));
+        header.setForeground(Color.WHITE);
+        
+         staffTable.setSelectionBackground(Color.decode("#D5D5D5"));
+         staffTable.setSelectionForeground(Color.BLACK);
 
         JScrollPane scrollPane = new JScrollPane(staffTable);
         staffPanel.add(scrollPane);
@@ -101,6 +115,10 @@ public class GUI extends JFrame {
         JLabel filterLabel = new JLabel("Filter:");
         JTextField filterText = new JTextField(20);
         JButton filterButton = new JButton("Filter");
+        
+        filterButton.setBackground(Color.decode("#3A4250"));
+        filterButton.setForeground(Color.WHITE);
+    
         filterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -202,15 +220,25 @@ public class GUI extends JFrame {
 
     private JPanel createFilmsTab() {
         JPanel filmsPanel = new JPanel(new BorderLayout());
+        filmsPanel.setBackground(new Color(244, 248, 252));
 
         String[] columnNames = {"Title", "Release Year", "Language", "Rental Duration", "Rental Rate", "Length", "Replacement Cost", "Rating", "Special Features"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         JTable filmsTable = new JTable(model);
+        filmsTable.setGridColor(new Color(224, 224, 224));
+        filmsTable.setBackground(Color.WHITE);
+        filmsTable.setSelectionBackground(new Color(196, 222, 255));
 
         JScrollPane scrollPane = new JScrollPane(filmsTable);
         filmsPanel.add(scrollPane, BorderLayout.CENTER);
+        
+        Border border = new CompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10),
+                new LineBorder(Color.GRAY, 1));
+        filmsPanel.setBorder(border);
 
         JButton addButton = new JButton("Add Film");
+         addButton.setBackground(new Color(0, 123, 255));
+         addButton.setForeground(Color.WHITE);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -394,6 +422,14 @@ public class GUI extends JFrame {
                 se.printStackTrace();
             }
         }
+        reportTable.setRowHeight(30);
+        reportTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+        reportTable.getTableHeader().setForeground(Color.WHITE);
+        reportTable.getTableHeader().setBackground(new Color(0, 102, 153));
+        reportTable.setSelectionBackground(new Color(0, 153, 204));
+        reportTable.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        reportTable.setGridColor(Color.LIGHT_GRAY);
+        
         return reportPanel;
     }
 
@@ -401,20 +437,34 @@ public class GUI extends JFrame {
         JPanel notificationsPanel = new JPanel();
         notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
         JPanel manageNotificationsPanel = new JPanel(new GridLayout(0, 2));
+        manageNotificationsPanel.setBorder(BorderFactory.createTitledBorder("Manage Notifications"));
+        manageNotificationsPanel.setBackground(Color.WHITE);
 
         JLabel storeIdLabel = new JLabel("Store ID:");
+        storeIdLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         JTextField storeIdField = new JTextField();
+        storeIdField.setFont(new Font("Arial", Font.PLAIN, 14));
         JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         JTextField nameField = new JTextField();
+        nameField.setFont(new Font("Arial", Font.PLAIN, 14));
         JLabel lnameLabel = new JLabel("Surname:");
+        lnameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         JTextField lnameField = new JTextField();
+        lnameField.setFont(new Font("Arial", Font.PLAIN, 14));
         JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         JTextField emailField = new JTextField();
+        emailField.setFont(new Font("Arial", Font.PLAIN, 14));
 
         JButton createButton = new JButton("Create");
+        createButton.setFont(new Font("Arial", Font.PLAIN, 14));
         JButton updateButton = new JButton("Update");
+        updateButton.setFont(new Font("Arial", Font.PLAIN, 14));
         JButton deleteButton = new JButton("Delete");
+        deleteButton.setFont(new Font("Arial", Font.PLAIN, 14));
         JButton listButton = new JButton("List Clients");
+        listButton.setFont(new Font("Arial", Font.PLAIN, 14));
 
         createButton.addActionListener(new ActionListener() {
             @Override
